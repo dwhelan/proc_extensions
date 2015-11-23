@@ -2,6 +2,7 @@ module ProcExtensions
   module Source
     def self.included(base)
       base.class_eval do
+        # rubocop:disable Lint/NestedMethodDefinition
         def source
           ProcSource.new(self).source
         end

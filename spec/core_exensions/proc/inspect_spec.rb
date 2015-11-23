@@ -23,6 +23,6 @@ describe Proc do
     source = stub_proc_source(proc)
     expect(source).to receive(:inspect).and_raise
 
-    expect(proc.inspect).to match /^#<Proc.+>/
+    expect(proc.inspect).to match(/^#<Proc.+>/)
   end
 end

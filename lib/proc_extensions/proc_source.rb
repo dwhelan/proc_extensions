@@ -1,6 +1,7 @@
 require 'sourcify'
 require 'forwardable'
 
+# rubocop:disable Lint/RescueException
 class ProcSource
   extend Forwardable
 

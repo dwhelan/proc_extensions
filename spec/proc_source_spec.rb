@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-# rubocop:disable Metrics/LineLength, Style/SymbolProc
+# rubocop:disable Metrics/LineLength, Style/SymbolProc, Style/Semicolon
 describe ProcSource do
   describe 'initialize' do
     it 'should allow a Proc to be an argument' do
@@ -40,12 +40,12 @@ describe ProcSource do
 
       it 'should raise error for multiple procs on the same line' do
         prc = proc { proc {} }
-        expect{ ProcSource.new(prc).public_send(method) } .to raise_error Sourcify::MultipleMatchingProcsPerLineError
+        expect { ProcSource.new(prc).public_send(method) } .to raise_error Sourcify::MultipleMatchingProcsPerLineError
       end
 
       it 'should raise error for procs returned from eval' do
         prc = eval 'proc {}'
-        expect{ ProcSource.new(prc).public_send(method) } .to raise_error Sourcify::CannotParseEvalCodeError
+        expect { ProcSource.new(prc).public_send(method) } .to raise_error Sourcify::CannotParseEvalCodeError
       end
     end
   end
@@ -87,7 +87,7 @@ describe ProcSource do
     end
 
     describe 'symbol procs' do
-      let(:source)  do
+      let(:source) do
         ProcSource.new proc(&:to_s)
       end
 
@@ -105,8 +105,7 @@ describe ProcSource do
     end
 
     specify 'procs where multiple sources are declared on the same line should not be equal' do
-      # rubocop:disable Style/Semicolon
-      proc1   = proc { 1 }; proc2 = proc { 1 }
+      proc1 = proc { 1 }; proc2 = proc { 1 }
       source1 = ProcSource.new proc1
       source2 = ProcSource.new proc2
 
@@ -114,8 +113,8 @@ describe ProcSource do
     end
 
     specify 'procs when declared via evals should not be equal' do
-      proc1   = eval 'proc { }'
-      proc2   = eval 'proc { }'
+      proc1   = eval 'proc {}'
+      proc2   = eval 'proc {}'
       source1 = ProcSource.new proc1
       source2 = ProcSource.new proc2
 
@@ -167,7 +166,7 @@ describe ProcSource do
     end
 
     specify 'should not match when one is a lambda and the other is not' do
-      expect(source).to_not match ProcSource.new lambda {}
+      expect(source).to_not match ProcSource.new -> {}
     end
 
     specify 'should not be equal with a different parameter arity' do
@@ -175,7 +174,7 @@ describe ProcSource do
     end
 
     describe 'symbol procs' do
-      let(:source)  do
+      let(:source) do
         ProcSource.new proc(&:to_s)
       end
 
@@ -193,7 +192,6 @@ describe ProcSource do
     end
 
     specify 'procs where multiple sources are declared on the same line should not match' do
-      # rubocop:disable Style/Semicolon
       proc1   = proc { 1 }; proc2 = proc { 1 }
       source1 = ProcSource.new proc1
       source2 = ProcSource.new proc2

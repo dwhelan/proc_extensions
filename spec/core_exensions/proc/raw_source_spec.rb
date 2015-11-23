@@ -17,4 +17,3 @@ describe Proc do
     expect(proc.raw_source).to be source_contents
   end
 end
-
