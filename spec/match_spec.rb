@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# rubocop:disable Metrics/LineLength
 describe 'RSpec::Matchers::BuiltIn::Match extensions' do
   context 'when matching objects other than procs' do
     it 'should use standard match description' do
@@ -7,13 +8,11 @@ describe 'RSpec::Matchers::BuiltIn::Match extensions' do
     end
 
     it 'should use standard match failure message' do
-      expect { expect('b').to match(/a/) }.to
-      raise_error(RSpec::Expectations::ExpectationNotMetError, %r{expected .b. to match /a/})
+      expect { expect('b').to match(/a/) }.to raise_error(RSpec::Expectations::ExpectationNotMetError, %r{expected .b. to match /a/})
     end
 
     it 'should use standard match failure message when negated' do
-      expect { expect('a').to_not match(/a/) }.to
-      raise_error(RSpec::Expectations::ExpectationNotMetError, %r{expected .a. not to match /a/})
+      expect { expect('a').to_not match(/a/) }.to raise_error(RSpec::Expectations::ExpectationNotMetError, %r{expected .a. not to match /a/})
     end
 
     it 'matching regular expressions should still work' do
@@ -46,7 +45,7 @@ describe 'RSpec::Matchers::BuiltIn::Match extensions' do
       expect(proc1).to match proc {}
     end
 
-    fit 'procs with different source should not match' do
+    it 'procs with different sources should not match' do
       expect(proc1).to_not match proc { 42 }
     end
 
@@ -56,13 +55,11 @@ describe 'RSpec::Matchers::BuiltIn::Match extensions' do
 
     it 'should show proc source code in failure message' do
       proc2 = proc { 42 }
-      expect { expect(proc1).to match proc2 }.to
-      raise_error(RSpec::Expectations::ExpectationNotMetError, 'expected "proc { }" to match "proc { 42 }"')
+      expect { expect(proc1).to match proc2 }.to raise_error(RSpec::Expectations::ExpectationNotMetError, 'expected "proc { }" to match "proc { 42 }"')
     end
 
     it 'should show proc source code in failure message when negated' do
-      expect { expect(proc1).to_not match proc1 }.to
-      raise_error(RSpec::Expectations::ExpectationNotMetError, 'expected "proc { }" not to match "proc { }"')
+      expect { expect(proc1).to_not match proc1 }.to raise_error(RSpec::Expectations::ExpectationNotMetError, 'expected "proc { }" not to match "proc { }"')
     end
   end
 end
