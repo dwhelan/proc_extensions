@@ -1,9 +1,13 @@
 # Proc Extensions
 
-Extensions to the Proc class:
- * inspect(): show source code if it can be extracted
- * source(), raw_srouce(): show source code
- * match(), =~: determine if two procs have the source code
+Methods added to the `Proc` class:
+ * `inspect`: returns source code if it can be extracted
+ * `source`, `raw_source`: returns source code
+ * `==`: determines if two procs have exactly the same source code
+ * `match`, `=~`: determines if two procs have the source code allowing for different parameter names
+
+The above methods are not automatically included into the `Proc` class.
+You need to explicitly include modules included in this gem.
 
 **Note** This gem uses the [sourcify](https://github.com/ngty/sourcify) gem to extact proc source code. The `sourcify` gem
 is no longer supported although it works as needed for the `proc_extensions` gem.
@@ -143,7 +147,6 @@ proc1.match(proc2) # => false
 The gem includes the ```ProcSource``` class which provides
 access to the proc extensions without modifying the ```Proc``` class itself.
 
-
 You can create a ```ProcSource``` with either a proc as a parameter or by passing a block to ```ProcSource```.
 
 ```ruby
@@ -158,8 +161,13 @@ You can use the ```raw_source``` method to return the original source and
 the  ```source``` method to return the *sanitized* version of the source.
 
 ```ruby
-ps1.source # => "proc { |a| a.to_s }"
-ps2.source # => "proc { |b| b.to_s }"
+ps1.source     # => "proc { |a| a.to_s }"
+ps1.raw_source # => "proc { |a| a.to_s }"
+ps1.to_s       # => "proc { |a| a.to_s }"
+ps1.inspect    # => "proc { |a| a.to_s }"
+
+ps1 == ps2     # => false
+ps1.match ps2  # => true
 ```
 
 ## Development
