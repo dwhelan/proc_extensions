@@ -14,7 +14,7 @@ RSpec::Matchers::BuiltIn::Match.class_eval do
     if expected.is_a?(Proc) && actual.is_a?(Proc)
       actual.match(expected)
     else
-      base_match.bind(self).(expected, actual)
+      base_match.bind(self).call(expected, actual)
     end
   end
 end
