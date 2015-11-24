@@ -3,7 +3,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'rspec/its'
 require 'simplecov'
 require 'coveralls'
-require 'pry-byebug'
+require 'pry-byebug' if RUBY_VERSION =~ /2/
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter,
