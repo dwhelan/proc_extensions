@@ -7,7 +7,7 @@ class ProcSource
   SOURCIFY_ERRORS = [
     Sourcify::MultipleMatchingProcsPerLineError,
     Sourcify::CannotParseEvalCodeError,
-    Sourcify::CannotHandleCreatedOnTheFlyProcError,
+    Sourcify::CannotHandleCreatedOnTheFlyProcError
   ]
 
   def initialize(proc = nil, &block)
@@ -28,7 +28,7 @@ class ProcSource
     else
       other.sexp == sexp
     end
-  rescue *SOURCIFY_ERRORS => e
+  rescue *SOURCIFY_ERRORS
     false
   end
 

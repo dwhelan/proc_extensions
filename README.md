@@ -3,6 +3,34 @@
 [![Code Climate](https://codeclimate.com/github/dwhelan/proc_extensions/badges/gpa.svg)](https://codeclimate.com/github/dwhelan/proc_extensions)
 [![Coverage Status](https://coveralls.io/repos/dwhelan/proc_extensions/badge.svg?branch=master&service=github)](https://coveralls.io/github/dwhelan/proc_extensions?branch=master)
 
+### ProcSource class
+
+The gem includes the `ProcSource` class which provides
+access to the proc extensions without monkey patching the `Proc` class itself.
+
+You can create a `ProcSource` with either a proc as a parameter or by passing a block to `ProcSource`.
+
+```ruby
+p = proc { |a| a.to_s }
+
+
+ps1 = ProcSource.new p
+ps2 = ProcSource.new { |b| b.to_s }
+```
+
+You can use the `raw_source` method to return the original source and
+the  `source` method to return the *sanitized* version of the source.
+
+```ruby
+ps1.source     # => "proc { |a| a.to_s }"
+ps1.raw_source # => "proc { |a| a.to_s }"
+ps1.to_s       # => "proc { |a| a.to_s }"
+ps1.inspect    # => "proc { |a| a.to_s }"
+
+ps1 == ps2     # => false
+ps1.match ps2  # => true
+```
+
 # Proc Extensions
 
 Extensions to Proc support source extraction and comparison.
@@ -149,33 +177,12 @@ proc2 = proc { proc {} }
 proc1.match(proc2) # => false
 ```
 
-### ProcSource class
+## Ruby Version Supported
 
-The gem includes the `ProcSource` class which provides
-access to the proc extensions without modifying the `Proc` class itself.
-
-You can create a `ProcSource` with either a proc as a parameter or by passing a block to `ProcSource`.
-
-```ruby
-p = proc { |a| a.to_s }
-
-
-ps1 = ProcSource.new p
-ps2 = ProcSource.new { |b| b.to_s }
-```
-
-You can use the `raw_source` method to return the original source and
-the  `source` method to return the *sanitized* version of the source.
-
-```ruby
-ps1.source     # => "proc { |a| a.to_s }"
-ps1.raw_source # => "proc { |a| a.to_s }"
-ps1.to_s       # => "proc { |a| a.to_s }"
-ps1.inspect    # => "proc { |a| a.to_s }"
-
-ps1 == ps2     # => false
-ps1.match ps2  # => true
-```
+* 1.9.3
+* 2.0
+* 2.1
+* 2.2
 
 ## Development
 
