@@ -1,11 +1,14 @@
 require 'sourcify'
 require 'forwardable'
 
-# rubocop:disable Lint/RescueException
 class ProcSource
   extend Forwardable
 
-  SOURCIFY_ERRORS = [Sourcify::MultipleMatchingProcsPerLineError, Sourcify::CannotParseEvalCodeError, Sourcify::CannotHandleCreatedOnTheFlyProcError]
+  SOURCIFY_ERRORS = [
+    Sourcify::MultipleMatchingProcsPerLineError,
+    Sourcify::CannotParseEvalCodeError,
+    Sourcify::CannotHandleCreatedOnTheFlyProcError,
+  ]
 
   def initialize(proc = nil, &block)
     if proc
@@ -25,7 +28,7 @@ class ProcSource
     else
       other.sexp == sexp
     end
-  rescue *SOURCIFY_ERRORS
+  rescue *SOURCIFY_ERRORS => e
     false
   end
 
@@ -45,8 +48,13 @@ class ProcSource
     extract_source(:to_source)
   end
 
-  alias_method :to_s,    :source
-  alias_method :inspect, :source
+  def to_s
+    source
+  rescue *SOURCIFY_ERRORS
+    super
+  end
+
+  alias_method :inspect, :to_s
 
   protected
 

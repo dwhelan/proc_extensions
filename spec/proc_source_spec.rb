@@ -50,9 +50,32 @@ describe ProcSource do
     end
   end
 
-  include_examples 'string functions', :to_s,       :to_source
   include_examples 'string functions', :source,     :to_source
   include_examples 'string functions', :raw_source, :to_raw_source
+
+  describe 'to_s' do
+    it 'should return the source if proc source can be extracted' do
+      prc = proc {}
+      expect(ProcSource.new(prc).to_s).to eq 'proc { }'
+    end
+
+    it 'should return Object.to_s if proc source cannot be extracted' do
+      prc = proc(&:to_s)
+      expect(ProcSource.new(prc).to_s).to match(/#<ProcSource:.+>/)
+    end
+  end
+
+  describe 'inspect' do
+    it 'should return the source if proc source can be extracted' do
+      prc = proc {}
+      expect(ProcSource.new(prc).inspect).to eq 'proc { }'
+    end
+
+    it 'should return Object.to_s if proc source cannot be extracted' do
+      prc = proc(&:to_s)
+      expect(ProcSource.new(prc).inspect).to match(/#<ProcSource:.+>/)
+    end
+  end
 
   let(:source) do
     ProcSource.new {}
@@ -105,7 +128,7 @@ describe ProcSource do
     end
 
     specify 'procs where multiple sources are declared on the same line should not be equal' do
-      proc1 = proc { 1 }; proc2 = proc { 1 }
+      proc1 = proc { 1 }; proc2 = proc { 2 }
       source1 = ProcSource.new proc1
       source2 = ProcSource.new proc2
 
@@ -192,7 +215,7 @@ describe ProcSource do
     end
 
     specify 'procs where multiple sources are declared on the same line should not match' do
-      proc1   = proc { 1 }; proc2 = proc { 1 }
+      proc1   = proc { 1 }; proc2 = proc { 2 }
       source1 = ProcSource.new proc1
       source2 = ProcSource.new proc2
 
@@ -235,14 +258,6 @@ describe ProcSource do
   describe 'aliases' do
     specify '-~ should be aliased to match' do
       expect(source.method('=~')).to eq source.method('match')
-    end
-
-    specify 'to_s should be aliased to source' do
-      expect(source.method('to_s')).to eq source.method('source')
-    end
-
-    specify 'inspect should be aliased to source' do
-      expect(source.method('inspect')).to eq source.method('source')
     end
   end
 end
