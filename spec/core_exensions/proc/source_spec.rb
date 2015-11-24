@@ -2,7 +2,7 @@ require 'spec_helper'
 
 require 'core_extensions/proc/source'
 
-Proc.include ProcExtensions::Source
+ProcExtensions::Source.install
 
 describe Proc do
   include_context 'stub_proc_source'
