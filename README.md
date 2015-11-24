@@ -1,3 +1,8 @@
+[![Gem Version](https://badge.fury.io/rb/proc_extensions.png)](http://badge.fury.io/rb/proc_extensions)
+[![Build Status](https://travis-ci.org/dwhelan/proc_extensions.png?branch=master)](https://travis-ci.org/dwhelan/proc_extensions)
+[![Code Climate](https://codeclimate.com/github/dwhelan/proc_extensions/badges/gpa.svg)](https://codeclimate.com/github/dwhelan/proc_extensions)
+[![Coverage Status](https://coveralls.io/repos/dwhelan/proc_extensions/badge.svg?branch=master&service=github)](https://coveralls.io/github/dwhelan/proc_extensions?branch=master)
+
 # Proc Extensions
 
 Methods added to the `Proc` class:
