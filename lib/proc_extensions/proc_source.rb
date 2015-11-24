@@ -5,6 +5,8 @@ require 'forwardable'
 class ProcSource
   extend Forwardable
 
+  SOURCIFY_ERRORS = [Sourcify::MultipleMatchingProcsPerLineError, Sourcify::CannotParseEvalCodeError, Sourcify::CannotHandleCreatedOnTheFlyProcError]
+
   def initialize(proc = nil, &block)
     if proc
       fail ArgumentError, 'cannot pass both an argument and a block' if block
@@ -23,13 +25,13 @@ class ProcSource
     else
       other.sexp == sexp
     end
-  rescue Exception
+  rescue *SOURCIFY_ERRORS
     false
   end
 
   def match(other)
     self == other || source_equal(other)
-  rescue Exception
+  rescue *SOURCIFY_ERRORS
     false
   end
 
