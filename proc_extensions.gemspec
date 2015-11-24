@@ -10,8 +10,8 @@ Gem::Specification.new do |gem|
   gem.authors       = ['Declan Whelan']
   gem.email         = ['dwhelan@leanintuit.com']
 
-  gem.summary       = 'Extensions to the Proc class.'
-  gem.description   = 'Extensions to the Proc class.'
+  gem.summary       = 'Extensions to the Proc class to support source extraction and comparison.'
+  gem.description   = 'Extensions to the Proc class to support source extraction and comparison.'
   gem.homepage      = 'https://github.com/dwhelan/proc_extensions'
   gem.license       = 'MIT'
 

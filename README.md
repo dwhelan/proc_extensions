@@ -5,7 +5,9 @@
 
 # Proc Extensions
 
-Methods added to the `Proc` class:
+Extensions to Proc support source extraction and comparison.
+
+Optionsally methods can be added to the `Proc` class:
  * `inspect`: returns source code if it can be extracted
  * `source`, `raw_source`: returns source code
  * `==`: determines if two procs have exactly the same source code
@@ -43,13 +45,13 @@ require proc_extensions
 
 #### inspect method
 
-The ```inspect``` methods is added to ```Proc``` when ```ProcExtensions::Inspect``` is included with ```Proc```:
+The `inspect` methods is added to `Proc` when `ProcExtensions::Inspect` is included with `Proc`:
 
 ```ruby
 Proc.include ProcExtensions::Inspect
 ```
 
-The ```inspect``` method will return the source code for the proc.
+The `inspect` method will return the source code for the proc.
 
 ```ruby
 p = proc { |a| a.to_s }
@@ -59,7 +61,7 @@ p.inspect # => "proc { |a| a.to_s }"
 l.inspect # => "lambda { |a| a.to_s }"
 ```
 
-If the source code cannot be extracted then the original ```Proc#inspect``` method will be called:
+If the source code cannot be extracted then the original `Proc#inspect` method will be called:
 
 ```ruby
 # Can't get source if multiple procs declared on the same line
@@ -69,14 +71,14 @@ p.inspect # => "#<Proc:0x007fe72b879b90>"
 
 #### source methods
 
-The ```source``` and ```raw_source``` methods are added to ```Proc``` when ```ProcExtensions::Source``` is included with ```Proc```:
+The `source` and `raw_source` methods are added to `Proc` when `ProcExtensions::Source` is included with `Proc`:
 
 ```ruby
 Proc.include ProcExtensions::Source
 ```
 
-The ```Proc#source``` method will return the source code for the Proc with
-white space and comments removed. The ```raw_source``` method will return the original source.
+The `Proc#source` method will return the source code for the Proc with
+white space and comments removed. The `raw_source` method will return the original source.
 
 ```ruby
 p = proc { | a |  a.to_s  }
@@ -90,18 +92,18 @@ l = lambda { |a| a.to_s }
 l.source # "lambda { |a| a.to_s }"
 ```
 
-If the source cannot be extracted then an exception will be raised by the ```sourcify``` gem.
+If the source cannot be extracted then an exception will be raised by the `sourcify` gem.
 
 #### match methods
 
-The ```match``` and ```=~``` methods are added to ```Proc``` when ```ProcExtensions::Match``` is included with ```Proc```:
+The `match` and `=~` methods are added to `Proc` when `ProcExtensions::Match` is included with `Proc`:
 
 ```ruby
 Proc.include ProcExtensions::Match
 ```
 
-The ```match(other)``` method will return ```true``` if the procs are the same proc or
-if the two procs have the same source code. The ```=~``` method is created as an alias for ```match```.
+The `match(other)` method will return `true` if the procs are the same proc or
+if the two procs have the same source code. The `=~` method is created as an alias for `match`.
 
 ```ruby
 proc1 = proc {}
@@ -137,7 +139,7 @@ proc1.match(proc2) # => true
 proc1.match(proc3) # => false
 ```
 
-If the source code cannot be extracted from either proc then ```false``` will be returned:
+If the source code cannot be extracted from either proc then `false` will be returned:
 
 ```ruby
 # Can't get source if multiple procs declared on the same line
@@ -149,10 +151,10 @@ proc1.match(proc2) # => false
 
 ### ProcSource class
 
-The gem includes the ```ProcSource``` class which provides
-access to the proc extensions without modifying the ```Proc``` class itself.
+The gem includes the `ProcSource` class which provides
+access to the proc extensions without modifying the `Proc` class itself.
 
-You can create a ```ProcSource``` with either a proc as a parameter or by passing a block to ```ProcSource```.
+You can create a `ProcSource` with either a proc as a parameter or by passing a block to `ProcSource`.
 
 ```ruby
 p = proc { |a| a.to_s }
@@ -162,8 +164,8 @@ ps1 = ProcSource.new p
 ps2 = ProcSource.new { |b| b.to_s }
 ```
 
-You can use the ```raw_source``` method to return the original source and
-the  ```source``` method to return the *sanitized* version of the source.
+You can use the `raw_source` method to return the original source and
+the  `source` method to return the *sanitized* version of the source.
 
 ```ruby
 ps1.source     # => "proc { |a| a.to_s }"
