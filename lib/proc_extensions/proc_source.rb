@@ -72,14 +72,7 @@ class ProcSource
   end
 
   def source_equal(other)
-    case
-    when other.count != count || other.lambda? != lambda?
-      false
-    when other.sexp_body == sexp_body
-      true
-    else
-      other.sexp == sexp_with_parameters_from(other)
-    end
+    other.count == count && other.lambda? == lambda? && other.sexp == sexp_with_parameters_from(other)
   end
 
   private

@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/dwhelan/proc_extensions/badges/gpa.svg)](https://codeclimate.com/github/dwhelan/proc_extensions)
 [![Coverage Status](https://coveralls.io/repos/dwhelan/proc_extensions/badge.svg?branch=master&service=github)](https://coveralls.io/github/dwhelan/proc_extensions?branch=master)
 
-### ProcSource class
+### ProcSource Class
 
 The gem includes the `ProcSource` class which provides
 access to the proc extensions without monkey patching the `Proc` class itself.
@@ -71,7 +71,7 @@ require proc_extensions
 
 ### Extensions to the Proc class
 
-#### inspect method
+#### inspect Method
 
 The `inspect` methods is added to `Proc` when `ProcExtensions::Inspect` is included with `Proc`:
 
@@ -97,7 +97,7 @@ p = proc { proc {} }
 p.inspect # => "#<Proc:0x007fe72b879b90>"
 ```
 
-#### source methods
+#### source Methods
 
 The `source` and `raw_source` methods are added to `Proc` when `ProcExtensions::Source` is included with `Proc`:
 
@@ -122,7 +122,7 @@ l.source # "lambda { |a| a.to_s }"
 
 If the source cannot be extracted then an exception will be raised by the `sourcify` gem.
 
-#### match methods
+#### match Methods
 
 The `match` and `=~` methods are added to `Proc` when `ProcExtensions::Match` is included with `Proc`:
 
@@ -177,7 +177,7 @@ proc2 = proc { proc {} }
 proc1.match(proc2) # => false
 ```
 
-## Ruby Version Supported
+## Ruby Versions Supported
 
 * 1.9.3
 * 2.0
