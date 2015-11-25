@@ -2,7 +2,7 @@ require 'spec_helper'
 
 require 'core_extensions/proc/match'
 
-ProcExtensions::Match.install
+Proc.send :include, ProcExtensions::Match
 
 describe Proc do
   include_context 'stub_proc_source'

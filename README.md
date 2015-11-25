@@ -76,7 +76,9 @@ require proc_extensions
 The `inspect` methods is added to `Proc` when `ProcExtensions::Inspect` is included with `Proc`:
 
 ```ruby
-Proc.include ProcExtensions::Inspect
+Proc.include ProcExtensions::Inspect        # Ruby 2
+Proc.send :include, ProcExtensions::Inspect # Ruby 1.9.3
+
 ```
 
 The `inspect` method will return the source code for the proc.
@@ -102,7 +104,8 @@ p.inspect # => "#<Proc:0x007fe72b879b90>"
 The `source` and `raw_source` methods are added to `Proc` when `ProcExtensions::Source` is included with `Proc`:
 
 ```ruby
-Proc.include ProcExtensions::Source
+Proc.include ProcExtensions::Source        # Ruby 2
+Proc.send :include, ProcExtensions::Source # Ruby 1.9.3
 ```
 
 The `Proc#source` method will return the source code for the Proc with
@@ -127,7 +130,8 @@ If the source cannot be extracted then an exception will be raised by the `sourc
 The `match` and `=~` methods are added to `Proc` when `ProcExtensions::Match` is included with `Proc`:
 
 ```ruby
-Proc.include ProcExtensions::Match
+Proc.include ProcExtensions::Match        # Ruby 2
+Proc.send :include, ProcExtensions::Match # Ruby 1.9.3
 ```
 
 The `match(other)` method will return `true` if the procs are the same proc or
