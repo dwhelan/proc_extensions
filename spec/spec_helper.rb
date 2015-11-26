@@ -4,11 +4,7 @@ require 'rspec/its'
 require 'simplecov'
 require 'coveralls'
 
-if RUBY_VERSION =~ /2/
-  require 'pry-byebug'
-else
-  require 'pry-debugger'
-end
+require RUBY_VERSION =~ /2/ ? 'pry-byebug' : 'pry-debugger'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter,
