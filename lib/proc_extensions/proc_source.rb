@@ -87,6 +87,7 @@ class ProcSource
   end
 
   def extract_source(method)
+    return '' unless proc
     proc_source = proc.public_send(method)
     lambda? ? proc_source.sub('proc ', 'lambda ') : proc_source
   end

@@ -31,11 +31,27 @@ ps1 == ps2     # => false
 ps1.match ps2  # => true
 ```
 
+You can create a `ProcSource` with no proc or with a `nil` proc and it will simply provide an empty string for `source`
+`raw_source`, `to_s` and `inspect`. And two `ProcSource` objects created like this will be considered equal.
+
+```ruby
+ps1 = ProcSource.new
+ps2 = ProcSource.new nil
+
+ps1.source     # => ""
+ps1.raw_source # => ""
+ps1.to_s       # => ""
+ps1.inspect    # => ""
+
+ps1 == ps2     # => true
+ps1.match ps2  # => true
+```
+
 # Proc Extensions
 
 Extensions to Proc support source extraction and comparison.
 
-Optionsally methods can be added to the `Proc` class:
+Optionally methods can be added to the `Proc` class:
  * `inspect`: returns source code if it can be extracted
  * `source`, `raw_source`: returns source code
  * `==`: determines if two procs have exactly the same source code

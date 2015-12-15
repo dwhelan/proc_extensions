@@ -21,6 +21,26 @@ describe ProcSource do
     end
   end
 
+  shared_examples 'with no proc' do
+    its(:source)     { should eq '' }
+    its(:raw_source) { should eq '' }
+    its(:to_s)       { should eq '' }
+    its(:inspect)    { should eq '' }
+
+    it('should be equal to ProcSource.new(nil)') { should eq ProcSource.new nil }
+    it('should be equal to ProcSource.new')      { should eq ProcSource.new     }
+  end
+
+  describe 'with a nil proc' do
+    subject { ProcSource.new nil }
+    include_examples 'with no proc'
+  end
+
+  describe 'with no proc' do
+    subject { ProcSource.new }
+    include_examples 'with no proc'
+  end
+
   shared_examples 'string functions' do |method, other|
     context method do
       it "should delegate to 'proc.#{other}'" do
@@ -256,7 +276,7 @@ describe ProcSource do
   end
 
   describe 'aliases' do
-    specify '-~ should be aliased to match' do
+    specify '=~ should be aliased to match' do
       expect(source.method('=~')).to eq source.method('match')
     end
   end
