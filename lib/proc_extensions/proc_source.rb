@@ -51,7 +51,7 @@ class ProcSource
   def to_s
     source
   rescue *SOURCIFY_ERRORS
-    super
+    proc.to_s
   end
 
   alias_method :inspect, :to_s

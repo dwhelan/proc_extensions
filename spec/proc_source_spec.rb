@@ -79,9 +79,9 @@ describe ProcSource do
       expect(ProcSource.new(prc).to_s).to eq 'proc { }'
     end
 
-    it 'should return Object.to_s if proc source cannot be extracted' do
+    it 'should return proc.to_s if proc source cannot be extracted' do
       prc = proc(&:to_s)
-      expect(ProcSource.new(prc).to_s).to match(/#<ProcSource:.+>/)
+      expect(ProcSource.new(prc).to_s).to eq prc.to_s
     end
   end
 
@@ -91,9 +91,9 @@ describe ProcSource do
       expect(ProcSource.new(prc).inspect).to eq 'proc { }'
     end
 
-    it 'should return Object.to_s if proc source cannot be extracted' do
-      prc = proc(&:to_s)
-      expect(ProcSource.new(prc).inspect).to match(/#<ProcSource:.+>/)
+    it 'should return proc.to_s if proc source cannot be extracted' do
+      prc = proc(&:tainted)
+      expect(ProcSource.new(prc).inspect).to eq prc.to_s
     end
   end
 
